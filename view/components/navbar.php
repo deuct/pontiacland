@@ -19,9 +19,9 @@
                         <li><a class="dropdown-item" href="../sales/listing.php">Sales Master Data</a></li>
                         <li><a class="dropdown-item" href="../overage/listing.php">Overage</a></li>
                         <li><a class="dropdown-item" href="../lease/listing.php">Lease Data</a></li>
-                        <li><a class="dropdown-item" href="#">Rent Data</a></li>
-                        <li><a class="dropdown-item" href="#">Budget And Actual</a></li>
-                        <li><a class="dropdown-item" href="#">Percentage Revenue</a></li>
+                        <li><a class="dropdown-item" href="../rentdata/listing.php">Rent Data</a></li>
+                        <li><a class="dropdown-item" href="../budget/listing.php">Budget</a></li>
+                        <li><a class="dropdown-item" href="../percentage/listing.php">Percentage Revenue</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
