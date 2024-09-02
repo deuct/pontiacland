@@ -25,8 +25,8 @@
                         </div>
                     </div>
 
-                    <hr />
-                    <span>&copy; 2024 Pontiac Land</span>
+                    <!-- <hr />
+                    <span>&copy; 2024 Pontiac Land</span> -->
                 </div>
             </div>
         </div>

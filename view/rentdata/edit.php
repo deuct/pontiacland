@@ -9,7 +9,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card mb-2 mt-2 p-2 text-center">
-                    <h3>Edit Overage</h3>
+                    <h3>Edit Rent Data</h3>
                 </div>
             </div>
         </div>
@@ -18,100 +18,106 @@
                 <div class="col-lg-10 col-md-10 col-sm-12">
                     <form>
                         <div class="mb-3">
-                            <label for="unit" class="form-label">Unit</label>
-                            <input type="text" class="form-control" id="unit">
-                        </div>
-                        <div class="mb-3">
-                            <label for="sales-type" class="form-label">Sales Type</label>
-                            <select class="form-select" aria-label="sales-type" id="sales-type">
-                                <option selected>Open this select menu</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
                             <label for="lease-no" class="form-label">Lease No</label>
                             <select class="form-select" aria-label="lease-no" id="lease-no">
                                 <option selected>Open this select menu</option>
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="month" class="form-label">Month</label>
-                            <select class="form-select" aria-label="month" id="month">
-                                <?php $arrMonth = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Des"] ?>
-                                <?php for ($i = 1; $i <= 12; $i++) { ?>
-                                    <option value=<?= $i ?>><?= $arrMonth[$i - 1] ?></option>
-                                <?php } ?>
+                            <label for="unit" class="form-label">Unit No.</label>
+                            <input type="text" class="form-control" id="unit">
+                        </div>
+                        <div class="mb-3">
+                            <label for="storey" class="form-label">Storey Level</label>
+                            <select class="form-select" aria-label="storey" id="storey">
+                                <option selected>Open this select menu</option>
+                                <option value="1">1st Storey</option>
+                                <option value="2">2nd Storey</option>
+                                <option value="3">3rd Storey</option>
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="year" class="form-label">Year</label>
-                            <select class="form-select" aria-label="year" id="year">
-                                <?php for ($i = 2015; $i <= 2099; $i++) { ?>
-                                    <option value=<?= $i ?>><?= $i ?></option>
-                                <?php } ?>
-                            </select>
+                            <label for="startdate" class="form-label">Start Date</label>
+                            <input type="date" class="form-control" id="startdate">
                         </div>
                         <div class="mb-3">
-                            <label for="charge-code" class="form-label">Charge Code</label>
-                            <input type="text" class="form-control" id="charge-code">
+                            <label for="enddate" class="form-label">End Date</label>
+                            <input type="date" class="form-control" id="enddate">
                         </div>
                         <div class="mb-3">
-                            <label for="partial-year" class="form-label">Partial Year</label>
-                            <input type="number" class="form-control" id="partial-year">
+                            <label for="lettable-area" class="form-label">Lettable Area</label>
+                            <input type="number" class="form-control" id="lettable-area">
                         </div>
                         <div class="mb-3">
-                            <label for="sales-amount" class="form-label">Sales Amount</label>
-                            <input type="number" step="0.01" class="form-control" id="sales-amount">
+                            <label for="leased-area" class="form-label">Leased Area</label>
+                            <input type="number" class="form-control" id="leased-area">
                         </div>
-                        <div class="mb-3">
-                            <label for="breakpoint-sales" class="form-label">Break Point Sales Amt.</label>
-                            <input type="number" step="0.01" class="form-control" id="breakpoint-sales">
-                        </div>
-                        <div class="mb-3">
-                            <label for="breakpoint-percent" class="form-label">Break Point Percent</label>
-                            <input type="number" step="0.01" class="form-control" id="breakpoint-percent">
-                        </div>
-                        <div class="mb-3">
-                            <label for="gross-overage" class="form-label">Gross Overage</label>
-                            <input type="number" step="0.01" class="form-control" id="gross-overage">
-                        </div>
-                        <div class="mb-3">
-                            <label for="offset" class="form-label">Offset</label>
-                            <input type="number" step="0.01" class="form-control" id="offset">
-                        </div>
-                        <div class="mb-3">
-                            <label for="offset-applied" class="form-label">Offset Applied</label>
-                            <input type="number" step="0.01" class="form-control" id="offset-applied">
-                        </div>
-                        <div class="mb-3">
-                            <label for="net-overage" class="form-label">Net Overage</label>
-                            <input type="number" step="0.01" class="form-control" id="net-overage">
-                        </div>
-                        <div class="mb-3">
-                            <label for="prior-adhoc" class="form-label">Prior Adhoc</label>
-                            <input type="number" step="0.01" class="form-control" id="prior-adhoc">
-                        </div>
-                        <div class="mb-3">
-                            <label for="charge-subtotal" class="form-label">Charge Subtotal</label>
-                            <input type="number" step="0.01" class="form-control" id="charge-subtotal">
-                        </div>
-                        <div class="mb-3">
-                            <label for="tax-amount" class="form-label">Tax Amount</label>
-                            <input type="number" step="0.01" class="form-control" id="tax-amount">
-                        </div>
-                        <div class="mb-3">
-                            <label for="charge-total" class="form-label">Charge Total</label>
-                            <input type="number" step="0.01" class="form-control" id="charge-total">
-                        </div>
-                        <div class="mb-3">
-                            <label for="billed-amount" class="form-label">Billed Amount</label>
-                            <input type="number" step="0.01" class="form-control" id="billed-amount">
-                        </div>
-                        <div class="mb-3">
-                            <label for="due-amount" class="form-label">Due Amount</label>
-                            <input type="number" step="0.01" class="form-control" id="due-amount">
-                        </div>
+                        <span>Net Rent & Service Charge Yearly(psf)</span>
+                        <table class="table table-striped hovered" id="nrsc-yearly-table">
+                            <tr>
+                                <td>Year</td>
+                                <td>Net Rent (psf)</td>
+                                <td>Service Charge (psf)</td>
+                                <td><button type="button" class="btn btn-secondary btn-sm" id="nrsc-yearly-add">+</button></td>
+                            </tr>
+                            <tr class="nrsc-yearly" id="nrsc-yearly-1">
+                                <td>
+                                    <select class="form-select" id="nrsc-yearly-select-1">
+                                        <?php for ($i = 2015; $i <= 2099; $i++) { ?>
+                                            <option value=<?= $i ?>><?= $i ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type=" number" class="form-control nr-yearly-val" />
+                                </td>
+                                <td>
+                                    <input type=" number" class="form-control sc-yearly-val" />
+                                </td>
+                            </tr>
+                        </table>
+                        <span>Net Rent & Service Charge Monthly(psf)</span>
+                        <table class="table table-striped hovered" id="nrsc-monthly-table">
+                            <tr>
+                                <td>Month</td>
+                                <td>Year</td>
+                                <td>Net Rent (psf)</td>
+                                <td>Service Charge (psf)</td>
+                                <td><button type="button" class="btn btn-secondary btn-sm" id="nrsc-monthly-add">+</button></td>
+                            </tr>
+                            <tr class="nrsc-monthly" id="nrsc-monthly-1">
+                                <td>
+                                    <select class="form-select" id="nrsc-monthly-select-1">
+                                        <?php $arrMonth = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Des"] ?>
+                                        <?php for ($i = 1; $i <= 12; $i++) {
+                                            if ($i === 1) {
+                                        ?>
+                                                <option value=<?= $i ?> selected><?= $arrMonth[$i - 1] ?></option>
+                                            <?php } else { ?>
+                                                <option value=<?= $i ?>><?= $arrMonth[$i - 1] ?></option>
+                                        <?php }
+                                        } ?>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select">
+                                        <?php for ($i = 2015; $i <= 2099; $i++) { ?>
+                                            <option value=<?= $i ?>><?= $i ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control nr-monthly-val" />
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control sc-monthly-val" />
+                                </td>
+                            </tr>
+                        </table>
+                        </table>
                         <div class="text-end">
                             <button type="button" onclick="window.location.href='./listing.php'" class="btn btn-secondary">Cancel</button>
+                            <button type="button" onclick="deleteData()" class="btn btn-danger">Delete</button>
                             <button type="button" onclick="submitform()" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
@@ -121,64 +127,220 @@
     </div>
 
     <script type="text/javascript">
-        var salesType = document.getElementById("sales-type"),
-            leaseNo = document.getElementById("lease-no"),
-            unit = document.getElementById("unit"),
-            month = document.getElementById("month"),
-            chargeCode = document.getElementById("charge-code"),
-            partialYear = document.getElementById("partial-year"),
-            salesAmount = document.getElementById("sales-amount"),
-            breakpointSales = document.getElementById("breakpoint-sales"),
-            breakpointPercent = document.getElementById("breakpoint-percent"),
-            grossOverage = document.getElementById("gross-overage"),
-            offset = document.getElementById("offset"),
-            offsetApplied = document.getElementById("offset-applied"),
-            netOverage = document.getElementById("net-overage"),
-            priorAdhoc = document.getElementById("prior-adhoc"),
-            chargeSubtotal = document.getElementById("charge-subtotal"),
-            taxAmount = document.getElementById("tax-amount"),
-            chargeTotal = document.getElementById("charge-total"),
-            billedAmount = document.getElementById("billed-amount"),
-            dueAmount = document.getElementById("due-amount"),
-            year = document.getElementById("year");
-
+        /* Get URL */
         function getCurrentURL(param) {
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const res = urlParams.get(param);
             return res;
         }
+        /* /Get URL */
 
+        var leaseNo = document.getElementById("lease-no"),
+            unit = document.getElementById("unit"),
+            storey = document.getElementById("storey"),
+            startdate = document.getElementById("startdate"),
+            enddate = document.getElementById("enddate"),
+            lettableArea = document.getElementById("lettable-area"),
+            leasedArea = document.getElementById("leased-area");
+
+        var nrscYearlyAdd = document.getElementById("nrsc-yearly-add"),
+            nrscYearlyTable = document.getElementById("nrsc-yearly-table"),
+            nrscYearlyCounter = document.querySelectorAll(".nrsc-yearly");
+
+        var nrscMonthlyAdd = document.getElementById("nrsc-monthly-add"),
+            nrscMonthlyTable = document.getElementById("nrsc-monthly-table"),
+            nrscMonthlyCounter = document.querySelectorAll(".nrsc-monthly");
+
+        window.addEventListener('load', () => {
+            nrscYearlyCounter = nrscYearlyCounter[nrscYearlyCounter.length - 1];
+            nrscYearlyCounter = nrscYearlyCounter.id;
+            nrscYearlyCounter = nrscYearlyCounter.split("-");
+            nrscYearlyCounter = parseInt(nrscYearlyCounter[2]);
+
+            nrscMonthlyCounter = nrscMonthlyCounter[nrscMonthlyCounter.length - 1];
+            nrscMonthlyCounter = nrscMonthlyCounter.id;
+            nrscMonthlyCounter = nrscMonthlyCounter.split("-");
+            nrscMonthlyCounter = parseInt(nrscMonthlyCounter[2]);
+        })
+
+        /* DOM Net Yearly */
+        nrscYearlyAdd.addEventListener("click", () => {
+            nrscYearlyAddEl();
+        });
+
+        function nrscYearlyAddEl() {
+            let trEl = document.createElement("tr");
+            trEl.classList.add("nrsc-yearly");
+            nrscYearlyCounter += 1;
+            let nrscYearlySelect = "nrsc-yearly-select-" + nrscYearlyCounter;
+            trEl.id = "nrsc-yearly-" + nrscYearlyCounter;
+            trEl.innerHTML = `
+                <td>
+                    <select class="form-select" id="` + nrscYearlySelect + `">
+                    </select>
+                </td>
+                <td>
+                    <input type="number" class="form-control nr-yearly-val" />
+                </td>
+                <td>
+                    <input type="number" class="form-control sc-yearly-val" />
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger" onclick="deleteRow('nrsc-yearly-` + nrscYearlyCounter + `')"><i class="bi bi-x-lg"></i></button>
+                </td>
+            `;
+            console.log(nrscYearlyTable);
+            nrscYearlyTableBody = nrscYearlyTable.getElementsByTagName("tbody");
+            nrscYearlyTableBody = nrscYearlyTableBody[0];
+            nrscYearlyTableBody.appendChild(trEl);
+
+            appendYearSelect(nrscYearlySelect);
+        }
+        /* /DOM Net Yearly */
+
+        /* DOM Net Monthly */
+        nrscMonthlyAdd.addEventListener("click", () => {
+            nrscMonthlyAddEl();
+        });
+
+        function nrscMonthlyAddEl() {
+            let trEl = document.createElement("tr");
+            trEl.classList.add("nrsc-monthly");
+            nrscMonthlyCounter += 1;
+            let nrscMonthlySelectMonth = "nrsc-monthly-selectmonth-" + nrscMonthlyCounter;
+            let nrscMonthlySelectYear = "nrsc-monthly-selectyear-" + nrscMonthlyCounter;
+            trEl.id = "nrsc-monthly-" + nrscMonthlyCounter;
+            trEl.innerHTML = `
+                  <tr class="nrsc-monthly" id="nrsc-monthly-1">
+                    <td>
+                        <select class="form-select" id="` + nrscMonthlySelectMonth + `">
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-select" id="` + nrscMonthlySelectYear + `">
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control nr-monthly-val" />
+                    </td>
+                    <td>
+                        <input type="number" class="form-control sc-monthly-val" />
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" onclick="deleteRow('nrsc-monthly-` + nrscMonthlyCounter + `')"><i class="bi bi-x-lg"></i></button>
+                    </td>
+                </tr>
+            `;
+            nrscMonthlyTableBody = nrscMonthlyTable.getElementsByTagName("tbody");
+            nrscMonthlyTableBody = nrscMonthlyTableBody[0];
+            nrscMonthlyTableBody.appendChild(trEl);
+
+            appendMonthSelect(nrscMonthlySelectMonth);
+            appendYearSelect(nrscMonthlySelectYear);
+        }
+        /* /DOM Net Monthly */
+
+        /* Append Year Select */
+        function appendYearSelect(selectId) {
+            selectId = document.getElementById(selectId);
+            for (let i = 2015; i <= 2099; i++) {
+                let year = document.createElement("option");
+                year.value = i;
+                year.innerHTML = i;
+                selectId.appendChild(year);
+            }
+        }
+        /* /Append Year Select */
+
+        /* Append Month Select */
+        function appendMonthSelect(selectId) {
+            selectId = document.getElementById(selectId);
+            let arrMonth = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Des"];
+            for (let i = 1; i <= 12; i++) {
+                let month = document.createElement("option");
+                month.value = i;
+                month.innerHTML = arrMonth[i - 1];
+                selectId.appendChild(month);
+            }
+        }
+        /* /Append Month Select */
+
+        /* Delete Row */
+        function deleteRow(rowId) {
+            rowId = document.getElementById(rowId);
+            if (rowId) {
+                rowId.remove();
+            }
+        }
+        /* /Delete Row */
+
+        /* Submit Form */
         function submitform() {
+            /* NRSC Yearly */
+            let arrNrscYearly = [];
+            let nrscYearlyEl = document.querySelectorAll(".nrsc-yearly");
+
+            for (let i = 0; i < nrscYearlyEl.length; i++) {
+                let data = nrscYearlyEl[i];
+                data = data.getElementsByTagName("td");
+                let year = data[0].getElementsByTagName("select");
+                year = year[0].value;
+                let nrVal = data[1].querySelector(".nr-yearly-val");
+                nrVal = nrVal.value;
+                let scVal = data[2].querySelector(".sc-yearly-val");
+                scVal = scVal.value;
+                jsonNrscYearly = {
+                    year: year,
+                    nr: nrVal,
+                    sc: scVal,
+                }
+                arrNrscYearly.push(jsonNrscYearly);
+            }
+            /* /NRSC Yearly */
+
+            /* NRSC Monthly */
+            let arrNrscMonthly = [];
+            let nrscMonthlyEl = document.querySelectorAll(".nrsc-monthly");
+
+            for (let i = 0; i < nrscMonthlyEl.length; i++) {
+                let data = nrscMonthlyEl[i];
+                data = data.getElementsByTagName("td");
+                let month = data[0].getElementsByTagName("select");
+                month = month[0].value;
+                let year = data[1].getElementsByTagName("select");
+                year = year[0].value;
+                let nrVal = data[2].querySelector(".nr-monthly-val");
+                nrVal = nrVal.value;
+                let scVal = data[3].querySelector(".sc-monthly-val");
+                scVal = scVal.value;
+                jsonNrscMonthly = {
+                    month: month,
+                    year: year,
+                    nr: nrVal,
+                    sc: scVal
+                }
+                arrNrscMonthly.push(jsonNrscMonthly);
+            }
+            /* /NRSC Monthly */
+
             $.ajax({
                 type: "POST", //type of method
-                url: "../../controller/overage/editdata.php", //your page
+                url: "../../controller/rentdata/editdata.php", //your page
                 data: {
-                    overageCode: getCurrentURL("overage_code"),
-                    salesType: salesType.value,
+                    unitCode: getCurrentURL("unit_code"),
                     leaseNo: leaseNo.value,
                     unit: unit.value,
-                    month: month.value,
-                    year: year.value,
-                    chargeCode: chargeCode.value,
-                    partialYear: partialYear.value,
-                    salesAmount: salesAmount.value,
-                    breakpointSales: breakpointSales.value,
-                    breakpointPercent: breakpointPercent.value,
-                    grossOverage: grossOverage.value,
-                    offset: offset.value,
-                    offsetApplied: offsetApplied.value,
-                    netOverage: netOverage.value,
-                    priorAdhoc: priorAdhoc.value,
-                    chargeSubtotal: chargeSubtotal.value,
-                    taxAmount: taxAmount.value,
-                    chargeTotal: chargeTotal.value,
-                    billedAmount: billedAmount.value,
-                    dueAmount: dueAmount.value,
+                    storey: storey.value,
+                    startdate: startdate.value,
+                    enddate: enddate.value,
+                    lettableArea: lettableArea.value,
+                    leasedArea: leasedArea.value,
+                    arrNrscYearly: JSON.stringify(arrNrscYearly),
+                    arrNrscMonthly: JSON.stringify(arrNrscMonthly),
                 }, // passing the values
                 success: function(res) {
                     res = JSON.parse(res);
-                    console.log(res);
                     if (res.status === 200) {
                         alert(res.msg);
                         window.location.href = "./listing.php";
@@ -189,36 +351,15 @@
                 }
             });
         }
+        /* /Submit Form */
 
-        function getSales() {
-            $.ajax({
-                type: "GET", //type of method
-                url: "../../controller/sales/getlistsales.php", //your page
-                dataType: 'json',
-                success: function(res) {
-                    console.log(res);
-                    if (res.status === 200) {
-                        let data = res.data;
-                        for (let i = 0; i < data.length; i++) {
-                            let optEl = document.createElement("option");
-                            optEl.value = data[i].sales_type;
-                            optEl.innerHTML = data[i].sales_name;
-                            salesType.appendChild(optEl);
-                        }
-                    }
-
-                    //do what you want here...
-                }
-            });
-        }
-
+        /* Get Data */
         function getLease() {
             $.ajax({
                 type: "GET", //type of method
                 url: "../../controller/lease/getlistlease.php", //your page
                 dataType: 'json',
                 success: function(res) {
-                    console.log(res);
                     if (res.status === 200) {
                         let data = res.data;
                         for (let i = 0; i < data.length; i++) {
@@ -234,36 +375,26 @@
             });
         }
 
-        function getData() {
+        window.onload = getLease();
+        /* /Get Data */
+
+        /* Get Form Data */
+        function getFormData() {
             $.ajax({
                 type: "GET", //type of method
-                url: "../../controller/overage/getform.php?overage_code=" + getCurrentURL("overage_code"), //your page
+                url: "../../controller/rentdata/getform.php?unit_code=" + getCurrentURL("unit_code"), //your page
                 dataType: 'json',
                 success: function(res) {
                     // res = JSON.parse(res);
-                    console.log(res);
-                    let data = res.data;
                     if (res.status === 200) {
-                        salesType.value = data.sales_type;
-                        leaseNo.value = data.lease_code;
-                        unit.value = data.unit;
-                        month.value = data.month;
-                        chargeCode.value = data.charge_code;
-                        partialYear.value = data.partial_year;
-                        salesAmount.value = data.sales_amount;
-                        breakpointSales.value = data.breakpoint_salesamt;
-                        breakpointPercent.value = data.breakpoint_percent;
-                        grossOverage.value = data.gross_overage;
-                        offset.value = data.offset;
-                        offsetApplied.value = data.offset_applied;
-                        netOverage.value = data.net_overage;
-                        priorAdhoc.value = data.prior_adhoc;
-                        chargeSubtotal.value = data.charge_subtotal;
-                        taxAmount.value = data.tax_amount;
-                        chargeTotal.value = data.charge_total;
-                        billedAmount.value = data.billed_amount;
-                        dueAmount.value = data.due_amount;
-                        year.value = data.year;
+                        leaseNo.value = res.data.lease_code;
+                        unit.value = res.data.unit_no;
+                        storey.value = res.data.storey_level;
+                        startdate.value = res.data.lease_startdate;
+                        enddate.value = res.data.lease_enddate;
+                        lettableArea.value = res.data.lettable_area;
+                        leasedArea.value = res.data.leased_area;
+
                     } else {
                         alert("Failed get data");
                         window.location.href = "./listing.php";
@@ -272,8 +403,122 @@
             });
         }
 
-        window.onload = getSales();
-        window.onload = getLease();
-        window.onload = getData();
+        window.onload = getFormData();
+
+        function getFormDataYearly() {
+            $.ajax({
+                type: "GET", //type of method
+                url: "../../controller/rentdata/getyearly.php?unit_code=" + getCurrentURL("unit_code"), //your page
+                dataType: 'json',
+                success: function(res) {
+                    // res = JSON.parse(res);
+                    // console.log(res);
+                    if (res.status === 200) {
+                        data = res.data;
+                        assignValYearly(1, data[0]);
+                        if (data.length > 1) {
+                            for (let i = 1; i < data.length; i++) {
+                                nrscYearlyAddEl();
+                                assignValYearly(i + 1, data[i]);
+                            }
+                        }
+                    } else {
+                        alert("Failed get data");
+                        window.location.href = "./listing.php";
+                    }
+                }
+            });
+        }
+
+        window.onload = getFormDataYearly();
+
+        function getFormDataMonthly() {
+            $.ajax({
+                type: "GET", //type of method
+                url: "../../controller/rentdata/getmonthly.php?unit_code=" + getCurrentURL("unit_code"), //your page
+                dataType: 'json',
+                success: function(res) {
+                    // res = JSON.parse(res);
+                    if (res.status === 200) {
+                        data = res.data;
+                        assignValMonthly(1, data[0]);
+                        if (data.length > 1) {
+                            for (let i = 1; i < data.length; i++) {
+                                nrscMonthlyAddEl();
+                                assignValMonthly(i + 1, data[i]);
+                            }
+                        }
+                    } else {
+                        alert("Failed get data");
+                        window.location.href = "./listing.php";
+                    }
+                }
+            });
+        }
+
+        window.onload = getFormDataMonthly();
+        /* /Get Form Data */
+
+        /* Assign Value Monthly */
+        function assignValMonthly(order, data) {
+            let monthlyRow = document.getElementById("nrsc-monthly-" + order);
+            let monthlyCol = monthlyRow.getElementsByTagName("td");
+            let month = monthlyCol[0].getElementsByTagName("select");
+            month = month[0];
+            month.value = data.month;
+            let year = monthlyCol[1].getElementsByTagName("select");
+            year = year[0];
+            year.value = data.year;
+            let nrVal = monthlyCol[2].getElementsByTagName("input");
+            nrVal = nrVal[0];
+            nrVal.value = data.net_rent;
+            let scVal = monthlyCol[3].getElementsByTagName("input");
+            scVal = scVal[0];
+            scVal.value = data.service_charge;
+        }
+        /* Assign Value Monthly */
+
+        /* Assign Value Yearly */
+        function assignValYearly(order, data) {
+            let yearlyRow = document.getElementById("nrsc-yearly-" + order);
+            let yearlyCol = yearlyRow.getElementsByTagName("td");
+            let year = yearlyCol[0].getElementsByTagName("select");
+            year = year[0];
+            year.value = data.year;
+            let nrVal = yearlyCol[1].getElementsByTagName("input");
+            nrVal = nrVal[0];
+            nrVal.value = data.net_rent;
+            let scVal = yearlyCol[2].getElementsByTagName("input");
+            scVal = scVal[0];
+            scVal.value = data.service_charge;
+        }
+        /* Assign Value Yearly */
+
+        /* Delete Data */
+        function deleteData() {
+            const confirmDelete = confirm("Are you sure want to delete this data ?");
+
+            if (confirmDelete) {
+                $.ajax({
+                    type: "POST", //type of method
+                    url: "../../controller/rentdata/deletedata.php", //your page
+                    data: {
+                        unitCode: getCurrentURL("unit_code")
+                    }, // passing the values
+                    success: function(res) {
+                        res = JSON.parse(res);
+                        console.log(res);
+                        if (res.status === 200) {
+                            alert(res.msg);
+                            window.location.href = "./listing.php";
+                        } else {
+                            alert(res.msg);
+                        }
+                        //do what you want here...
+                    }
+                });
+            }
+        }
+        /* /Delete Data */
     </script>
     <?php include_once("../components/footer.php") ?>

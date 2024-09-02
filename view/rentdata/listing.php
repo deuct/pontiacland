@@ -31,11 +31,12 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
+                                        <th scope="col">Unit Code</th>
                                         <th scope="col">Lease No</th>
+                                        <th scope="col">Unit No</th>
                                         <th scope="col">From Date</th>
                                         <th scope="col">To Date</th>
-                                        <th scope="col">Charge Code</th>
-                                        <th scope="col">Unit</th>
+                                        <th scope="col">Storey</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -55,7 +56,7 @@
             function getData() {
                 $.ajax({
                     type: "GET", //type of method
-                    url: "../../controller/overage/getlisting.php", //your page
+                    url: "../../controller/rentdata/getlisting.php", //your page
                     dataType: 'json',
                     success: function(res) {
                         console.log(res);
@@ -65,13 +66,14 @@
                                 let trEl = document.createElement("tr");
                                 trEl.innerHTML = `
                                     <td>` + (i + 1) + `</td>
-                                    <td>` + data[i].lease_no + `</td>
-                                    <td>` + data[i].startdate + `</td>
-                                    <td>` + data[i].enddate + `</td>
-                                    <td>` + data[i].charge_code + `</td>
-                                    <td>` + data[i].unit + `</td>
+                                    <td>` + data[i].unit_code + `</td>
+                                    <td>` + data[i].lease_code + `</td>
+                                    <td>` + data[i].unit_no + `</td>
+                                    <td>` + data[i].lease_startdate + `</td>
+                                    <td>` + data[i].lease_enddate + `</td>
+                                    <td>` + data[i].storey_level + `</td>
                                     <td class="d-flex">
-                                        <button type="button" class="btn btn-sm btn-primary me-2" onclick="window.location.href='./edit.php?overage_code=` + data[i].overage_code + `'">Edit</button>
+                                        <button type="button" class="btn btn-sm btn-primary me-2" onclick="window.location.href='./edit.php?unit_code=` + data[i].unit_code + `'">Edit</button>
                                     </td>
                                 `;
                                 listBody.appendChild(trEl);

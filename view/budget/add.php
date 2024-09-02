@@ -36,7 +36,7 @@
                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                             <div class="mb-3">
                                 <label for="date-<?= $i ?>" class="form-label"><?= $arrMonth[($i - 1)] ?></label>
-                                <input type="text" class="form-control" id="date-<?= $i ?>">
+                                <input type="text" class="form-control date-value" id="date-<?= $i ?>">
                             </div>
                         <?php } ?>
                         <div class="text-end">
@@ -50,41 +50,28 @@
     </div>
 
     <script type="text/javascript">
-        var salesType = document.getElementById("sales-type");
+        var leaseNo = document.getElementById("lease-no"),
+            year = document.getElementById("year"),
+            dateValue = document.querySelectorAll(".date-value");
+
 
         function submitform() {
-            // if (salesName.value == "") {
-            //     alert("please fill sales name");
-            //     return;
-            // }
+            let arrDate = [];
+            for (let i = 0; i < dateValue.length; i++) {
+                arrDate.push(dateValue[i].value);
+            }
+
             $.ajax({
                 type: "POST", //type of method
-                url: "../../controller/overage/adddata.php", //your page
+                url: "../../controller/budget/adddata.php", //your page
                 data: {
-                    salesType: salesType.value,
                     leaseNo: leaseNo.value,
-                    unit: unit.value,
-                    month: month.value,
-                    chargeCode: chargeCode.value,
-                    partialYear: partialYear.value,
-                    salesAmount: salesAmount.value,
-                    breakpointSales: breakpointSales.value,
-                    breakpointPercent: breakpointPercent.value,
-                    grossOverage: grossOverage.value,
-                    offset: offset.value,
-                    offsetApplied: offsetApplied.value,
-                    netOverage: netOverage.value,
-                    priorAdhoc: priorAdhoc.value,
-                    chargeSubtotal: chargeSubtotal.value,
-                    taxAmount: taxAmount.value,
-                    chargeTotal: chargeTotal.value,
-                    billedAmount: billedAmount.value,
-                    dueAmount: dueAmount.value,
                     year: year.value,
+                    dateValue: arrDate,
                 }, // passing the values
                 success: function(res) {
                     res = JSON.parse(res);
-                    console.log(res);
+                    // console.log(res);
                     if (res.status === 200) {
                         alert(res.msg);
                         window.location.href = "./listing.php";
@@ -96,35 +83,13 @@
             });
         }
 
-        function getSales() {
-            $.ajax({
-                type: "GET", //type of method
-                url: "../../controller/sales/getlistsales.php", //your page
-                dataType: 'json',
-                success: function(res) {
-                    console.log(res);
-                    if (res.status === 200) {
-                        let data = res.data;
-                        for (let i = 0; i < data.length; i++) {
-                            let optEl = document.createElement("option");
-                            optEl.value = data[i].sales_type;
-                            optEl.innerHTML = data[i].sales_name;
-                            salesType.appendChild(optEl);
-                        }
-                    }
-
-                    //do what you want here...
-                }
-            });
-        }
-
         function getLease() {
             $.ajax({
                 type: "GET", //type of method
                 url: "../../controller/lease/getlistlease.php", //your page
                 dataType: 'json',
                 success: function(res) {
-                    console.log(res);
+                    // console.log(res);
                     if (res.status === 200) {
                         let data = res.data;
                         for (let i = 0; i < data.length; i++) {
@@ -140,7 +105,6 @@
             });
         }
 
-        window.onload = getSales();
         window.onload = getLease();
     </script>
     <?php include_once("../components/footer.php") ?>

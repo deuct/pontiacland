@@ -18,10 +18,22 @@
                 <div class="col-lg-10 col-md-10 col-sm-12">
                     <form>
                         <div class="mb-3">
-                            <label for="lease-no" class="form-label">Lease No</label>
-                            <select class="form-select" aria-label="lease-no" id="lease-no">
+                            <label for="unit-code" class="form-label">Unit Code</label>
+                            <select class="form-select" aria-label="unit-code" id="unit-code">
                                 <option selected>Open this select menu</option>
                             </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="lease-no" class="form-label">Lease No</label>
+                            <input type="text" class="form-control" id="lease-no" readonly disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="startdate" class="form-label">Start Date</label>
+                            <input type="date" class="form-control" id="startdate" readonly disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="enddate" class="form-label">End Date</label>
+                            <input type="date" class="form-control" id="enddate" readonly disabled>
                         </div>
                         <div class="mb-3">
                             <label for="year" class="form-label">Year</label>
@@ -31,14 +43,19 @@
                                 <?php } ?>
                             </select>
                         </div>
-                        <span>Percentage Per Month</span>
-                        <hr />
-                        <?php for ($i = 1; $i <= 12; $i++) { ?>
-                            <div class="mb-3">
-                                <label for="date-<?= $i ?>" class="form-label"><?= $arrMonth[($i - 1)] ?></label>
-                                <input type="text" class="form-control" id="date-<?= $i ?>">
-                            </div>
-                        <?php } ?>
+                        <div class="mb-3">
+                            <label for="month" class="form-label">Month</label>
+                            <select class="form-select" aria-label="month" id="month">
+                                <?php $arrMonth = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Des"] ?>
+                                <?php for ($i = 1; $i <= 12; $i++) { ?>
+                                    <option value=<?= $i ?>><?= $arrMonth[$i - 1] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="percentage-val" class="form-label">Percentage Value</label>
+                            <input type="number" class="form-control" id="percentage-val">
+                        </div>
                         <div class="text-end">
                             <button type="button" onclick="window.location.href='./listing.php'" class="btn btn-secondary">Cancel</button>
                             <button type="button" onclick="submitform()" class="btn btn-primary">Submit</button>
@@ -50,37 +67,23 @@
     </div>
 
     <script type="text/javascript">
-        var salesType = document.getElementById("sales-type");
+        var unitCode = document.getElementById("unit-code"),
+            leaseNo = document.getElementById("lease-no"),
+            startdate = document.getElementById("startdate"),
+            enddate = document.getElementById("enddate"),
+            year = document.getElementById("year"),
+            month = document.getElementById("month"),
+            percentageVal = document.getElementById("percentage-val");
 
         function submitform() {
-            // if (salesName.value == "") {
-            //     alert("please fill sales name");
-            //     return;
-            // }
             $.ajax({
                 type: "POST", //type of method
-                url: "../../controller/overage/adddata.php", //your page
+                url: "../../controller/percentage/adddata.php", //your page
                 data: {
-                    salesType: salesType.value,
-                    leaseNo: leaseNo.value,
-                    unit: unit.value,
-                    month: month.value,
-                    chargeCode: chargeCode.value,
-                    partialYear: partialYear.value,
-                    salesAmount: salesAmount.value,
-                    breakpointSales: breakpointSales.value,
-                    breakpointPercent: breakpointPercent.value,
-                    grossOverage: grossOverage.value,
-                    offset: offset.value,
-                    offsetApplied: offsetApplied.value,
-                    netOverage: netOverage.value,
-                    priorAdhoc: priorAdhoc.value,
-                    chargeSubtotal: chargeSubtotal.value,
-                    taxAmount: taxAmount.value,
-                    chargeTotal: chargeTotal.value,
-                    billedAmount: billedAmount.value,
-                    dueAmount: dueAmount.value,
+                    unitCode: unitCode.value,
                     year: year.value,
+                    month: month.value,
+                    percentageVal: percentageVal.value
                 }, // passing the values
                 success: function(res) {
                     res = JSON.parse(res);
@@ -96,10 +99,11 @@
             });
         }
 
-        function getSales() {
+        /* Function */
+        function getRent() {
             $.ajax({
                 type: "GET", //type of method
-                url: "../../controller/sales/getlistsales.php", //your page
+                url: "../../controller/percentage/getlistrentdata.php", //your page
                 dataType: 'json',
                 success: function(res) {
                     console.log(res);
@@ -107,40 +111,39 @@
                         let data = res.data;
                         for (let i = 0; i < data.length; i++) {
                             let optEl = document.createElement("option");
-                            optEl.value = data[i].sales_type;
-                            optEl.innerHTML = data[i].sales_name;
-                            salesType.appendChild(optEl);
+                            optEl.value = data[i].unit_code;
+                            optEl.innerHTML = data[i].unit_code;
+                            unitCode.appendChild(optEl);
                         }
                     }
-
                     //do what you want here...
                 }
             });
         }
 
-        function getLease() {
+        window.onload = getRent();
+
+        unitCode.addEventListener("change", (e) => {
+            getRentData(e.target.value);
+        })
+
+        function getRentData(unitCode) {
             $.ajax({
                 type: "GET", //type of method
-                url: "../../controller/lease/getlistlease.php", //your page
+                url: "../../controller/percentage/getrentdata.php?unit_code=" + unitCode, //your page
                 dataType: 'json',
                 success: function(res) {
                     console.log(res);
                     if (res.status === 200) {
                         let data = res.data;
-                        for (let i = 0; i < data.length; i++) {
-                            let optEl = document.createElement("option");
-                            optEl.value = data[i].lease_code;
-                            optEl.innerHTML = data[i].lease_no;
-                            leaseNo.appendChild(optEl);
-                        }
+                        leaseNo.value = data.lease_no;
+                        startdate.value = data.lease_startdate;
+                        enddate.value = data.lease_enddate;
                     }
-
                     //do what you want here...
                 }
             });
         }
-
-        window.onload = getSales();
-        window.onload = getLease();
+        /* Function */
     </script>
     <?php include_once("../components/footer.php") ?>

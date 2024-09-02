@@ -112,6 +112,7 @@
                         </div>
                         <div class="text-end">
                             <button type="button" onclick="window.location.href='./listing.php'" class="btn btn-secondary">Cancel</button>
+                            <button type="button" onclick="deleteData()" class="btn btn-danger">Delete</button>
                             <button type="button" onclick="submitform()" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
@@ -275,5 +276,32 @@
         window.onload = getSales();
         window.onload = getLease();
         window.onload = getData();
+
+        /* Delete Data */
+        function deleteData() {
+            const confirmDelete = confirm("Are you sure want to delete this data ?");
+
+            if (confirmDelete) {
+                $.ajax({
+                    type: "POST", //type of method
+                    url: "../../controller/overage/deletedata.php", //your page
+                    data: {
+                        overageCode: getCurrentURL("overage_code")
+                    }, // passing the values
+                    success: function(res) {
+                        res = JSON.parse(res);
+                        console.log(res);
+                        if (res.status === 200) {
+                            alert(res.msg);
+                            window.location.href = "./listing.php";
+                        } else {
+                            alert(res.msg);
+                        }
+                        //do what you want here...
+                    }
+                });
+            }
+        }
+        /* /Delete Data */
     </script>
     <?php include_once("../components/footer.php") ?>
