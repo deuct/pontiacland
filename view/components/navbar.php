@@ -32,7 +32,7 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">Report A</a></li>
                         <li><a class="dropdown-item" href="<?= $baseURL ?>/view/report/report-b/filter.php">Report B</a></li>
-                        <li><a class="dropdown-item" href="#">Report C</a></li>
+                        <li><a class="dropdown-item" href="<?= $baseURL ?>/view/report/report-c/filter.php">Report C</a></li>
                     </ul>
                 </li>
             </ul>
