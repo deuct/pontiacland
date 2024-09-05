@@ -36,7 +36,7 @@ try {
     FROM rentdata a
     LEFT JOIN leasedata b ON a.lease_code = b.lease_code
     WHERE DATE_FORMAT(a.lease_startdate,'%Y') <= '$year' AND DATE_FORMAT(a.lease_enddate,'%Y') >= '$year'
-    ORDER BY a.storey_level ASC
+    ORDER BY a.storey_level ASC, b.lease_no ASC
     ";
     // print_r($qGetData);
     $qGetData = $conn->query($qGetData);
