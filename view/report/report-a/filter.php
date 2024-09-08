@@ -9,7 +9,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card mb-2 mt-2 p-2 text-center">
-                    <h3>Report B</h3>
+                    <h3>Report A</h3>
                 </div>
             </div>
         </div>
@@ -25,15 +25,6 @@
                                 <?php } ?>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="month" class="form-label">Month</label>
-                            <select class="form-select" aria-label="month" id="month">
-                                <?php $arrMonth = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Des"] ?>
-                                <?php for ($i = 1; $i <= 12; $i++) { ?>
-                                    <option value=<?= $i ?>><?= $arrMonth[$i - 1] ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
                         <div class="text-end">
                             <button type="button" onclick="window.location.href='./listing.php'" class="btn btn-secondary">Cancel</button>
                             <button type="button" onclick="submitform()" class="btn btn-primary">Submit</button>
@@ -45,11 +36,10 @@
     </div>
 
     <script type="text/javascript">
-        var year = document.getElementById("year"),
-            month = document.getElementById("month");
+        var year = document.getElementById("year");
 
         function submitform() {
-            newwindow = window.open('./view.php?year=' + year.value + '&month=' + month.value, 'Report B', 'height=100%,width=100%');
+            newwindow = window.open('./view.php?year=' + year.value, 'Report A', 'height=100vh,width=100vh');
             if (window.focus) {
                 newwindow.focus()
             }
