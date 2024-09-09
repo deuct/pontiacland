@@ -27,50 +27,124 @@
             <td rowspan="2">Monthly Lease Net Rent</td>
             <td rowspan="2">Monthly Lease Service Charge</td>
             <td rowspan="2">Monthly Total Gross Rent</td>
-            <td colspan="12">Net Revenue For <?= $_GET["year"] ?></td>
-            <td colspan="12">Service Charge For <?= $_GET["year"] ?></td>
+            <td colspan="48" style="text-align:center">Net Revenue For <?= $_GET["year"] ?></td>
+            <td colspan="48" style="text-align:center">Service Charge For <?= $_GET["year"] ?></td>
             <td></td>
-            <td colspan="12">Percentage Revenue For <?= $_GET["year"] ?></td>
+            <td colspan="12" style="text-align:center">Percentage Revenue For <?= $_GET["year"] ?></td>
           </tr>
           <tr>
             <td>Jan <?= $_GET["year"] ?> <br />ACT</td>
             <td>Jan <?= $_GET["year"] ?> <br />BUDGET</td>
             <td>Jan <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Jan <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
             <td>Feb <?= $_GET["year"] ?> <br />ACT</td>
             <td>Feb <?= $_GET["year"] ?> <br />BUDGET</td>
             <td>Feb <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Feb <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
             <td>Mar <?= $_GET["year"] ?> <br />ACT</td>
             <td>Mar <?= $_GET["year"] ?> <br />BUDGET</td>
             <td>Mar <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Mar <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
             <td>Apr <?= $_GET["year"] ?> <br />ACT</td>
             <td>Apr <?= $_GET["year"] ?> <br />BUDGET</td>
             <td>Apr <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Apr <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
             <td>May <?= $_GET["year"] ?> <br />ACT</td>
             <td>May <?= $_GET["year"] ?> <br />BUDGET</td>
             <td>May <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">May <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
             <td>Jun <?= $_GET["year"] ?> <br />ACT</td>
             <td>Jun <?= $_GET["year"] ?> <br />BUDGET</td>
             <td>Jun <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Jun <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
             <td>Jul <?= $_GET["year"] ?> <br />ACT</td>
             <td>Jul <?= $_GET["year"] ?> <br />BUDGET</td>
             <td>Jul <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Jul <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
             <td>Aug <?= $_GET["year"] ?> <br />ACT</td>
             <td>Aug <?= $_GET["year"] ?> <br />BUDGET</td>
             <td>Aug <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Aug <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
             <td>Sep <?= $_GET["year"] ?> <br />ACT</td>
             <td>Sep <?= $_GET["year"] ?> <br />BUDGET</td>
             <td>Sep <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Sep <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
             <td>Oct <?= $_GET["year"] ?> <br />ACT</td>
             <td>Oct <?= $_GET["year"] ?> <br />BUDGET</td>
             <td>Oct <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Oct <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
             <td>Nov <?= $_GET["year"] ?> <br />ACT</td>
             <td>Nov <?= $_GET["year"] ?> <br />BUDGET</td>
             <td>Nov <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Nov <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
             <td>Dec <?= $_GET["year"] ?> <br />ACT</td>
             <td>Dec <?= $_GET["year"] ?> <br />BUDGET</td>
             <td>Dec <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Dec <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
 
+            <td>Jan <?= $_GET["year"] ?> <br />ACT</td>
+            <td>Jan <?= $_GET["year"] ?> <br />BUDGET</td>
+            <td>Jan <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Jan <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
+            <td>Feb <?= $_GET["year"] ?> <br />ACT</td>
+            <td>Feb <?= $_GET["year"] ?> <br />BUDGET</td>
+            <td>Feb <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Feb <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
+            <td>Mar <?= $_GET["year"] ?> <br />ACT</td>
+            <td>Mar <?= $_GET["year"] ?> <br />BUDGET</td>
+            <td>Mar <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Mar <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
+            <td>Apr <?= $_GET["year"] ?> <br />ACT</td>
+            <td>Apr <?= $_GET["year"] ?> <br />BUDGET</td>
+            <td>Apr <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Apr <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
+            <td>May <?= $_GET["year"] ?> <br />ACT</td>
+            <td>May <?= $_GET["year"] ?> <br />BUDGET</td>
+            <td>May <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">May <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
+            <td>Jun <?= $_GET["year"] ?> <br />ACT</td>
+            <td>Jun <?= $_GET["year"] ?> <br />BUDGET</td>
+            <td>Jun <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Jun <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
+            <td>Jul <?= $_GET["year"] ?> <br />ACT</td>
+            <td>Jul <?= $_GET["year"] ?> <br />BUDGET</td>
+            <td>Jul <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Jul <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
+            <td>Aug <?= $_GET["year"] ?> <br />ACT</td>
+            <td>Aug <?= $_GET["year"] ?> <br />BUDGET</td>
+            <td>Aug <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Aug <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
+            <td>Sep <?= $_GET["year"] ?> <br />ACT</td>
+            <td>Sep <?= $_GET["year"] ?> <br />BUDGET</td>
+            <td>Sep <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Sep <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
+            <td>Oct <?= $_GET["year"] ?> <br />ACT</td>
+            <td>Oct <?= $_GET["year"] ?> <br />BUDGET</td>
+            <td>Oct <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Oct <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
+            <td>Nov <?= $_GET["year"] ?> <br />ACT</td>
+            <td>Nov <?= $_GET["year"] ?> <br />BUDGET</td>
+            <td>Nov <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Nov <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
+            <td>Dec <?= $_GET["year"] ?> <br />ACT</td>
+            <td>Dec <?= $_GET["year"] ?> <br />BUDGET</td>
+            <td>Dec <?= $_GET["year"] ?> <br />VARIANCE</td>
+            <td style="background:yellow">Dec <?= (int)$_GET["year"] - 1 ?> <br />ACT</td>
 
+            <td></td>
+
+            <td>Jan <?= $_GET["year"] ?> <br />ACT</td>
+            <td>Feb <?= $_GET["year"] ?> <br />ACT</td>
+            <td>Mar <?= $_GET["year"] ?> <br />ACT</td>
+            <td>Apr <?= $_GET["year"] ?> <br />ACT</td>
+            <td>May <?= $_GET["year"] ?> <br />ACT</td>
+            <td>Jun <?= $_GET["year"] ?> <br />ACT</td>
+            <td>Jul <?= $_GET["year"] ?> <br />ACT</td>
+            <td>Aug <?= $_GET["year"] ?> <br />ACT</td>
+            <td>Sep <?= $_GET["year"] ?> <br />ACT</td>
+            <td>Oct <?= $_GET["year"] ?> <br />ACT</td>
+            <td>Nov <?= $_GET["year"] ?> <br />ACT</td>
+            <td>Dec <?= $_GET["year"] ?> <br />ACT</td>
           </tr>
         </table>
       </div>
