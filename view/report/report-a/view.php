@@ -161,6 +161,24 @@
     }
     /* /Get URL */
 
+    function getActBefore(unitCode, month, year){
+      $.ajax({
+      type: "POST", //type of method
+      url: "../../../controller/report/report-a/getactbefore.php", //your page
+      data: {
+        year: year,
+        month: month,
+        unitCode: unitCode,
+      }, // passing the values
+      success: function(res) {
+        res = JSON.parse(res);
+        console.log("res");
+        
+        console.log(res);
+      }
+    })
+    }
+
     function getAct(leasestart, leaseend, compareMonth, monthlyLeaseCharge) {
       compareMonth = new Date(compareMonth);
       let compareMonthNumber = compareMonth.getMonth() + 1;
@@ -253,6 +271,10 @@
             let monthlyLeaseNetRent = parseFloat(data[i].nr) * parseFloat(data[i].leased_area); 
             let monthlyLeaseServiceCharge = parseFloat(data[i].sc) * parseFloat(data[i].leased_area); 
             let monthlyTotalGrossRent = monthlyLeaseNetRent + monthlyLeaseServiceCharge;
+
+            /* ACT Year Before */
+            getActBefore(data[i].unit_code, 1, getCurrentURL("year"));
+            /* /ACT Year Before */
 
             let trRentData = document.createElement("tr");
             trRentData.innerHTML =
