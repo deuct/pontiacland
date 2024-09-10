@@ -172,9 +172,6 @@
       let leaseendPlusOne = new Date(leaseend + (3600 * 1000 * 24));
       let compareMonthPlusOne = new Date(compareMonth + (3600 * 1000 * 24));
 
-      console.log("-----------------------");
-      console.log(monthlyLeaseCharge);
-      console.log(compareMonth);
       if (compareMonthNumber == leaseendNumber && compareMonth.getFullYear() == leaseend.getFullYear()) {
         return 0;
       }
@@ -182,8 +179,6 @@
         return 0;
       }
       if (compareMonth < leaseendPlusOne && compareMonthPlusOne > leasestart) {
-        console.log("---------------222--------");
-        console.log(monthlyLeaseCharge);
         return parseFloat(monthlyLeaseCharge).toFixed(2);
       }
     }
@@ -193,12 +188,11 @@
 
     $.ajax({
       type: "POST", //type of method
-      url: "../../../controller/report/report-c/getdata.php", //your page
+      url: "../../../controller/report/report-a/getdata.php", //your page
       data: {
         year: getCurrentURL("year"),
       }, // passing the values
       success: function(res) {
-        // console.log(res);
         res = JSON.parse(res);
         console.log(res);
         if (res.status === 200) {
@@ -209,7 +203,7 @@
             if (i === 0) {
               trStorey.innerHTML =
                 `<tr>
-                  <td colspan="102">` +
+                  <td colspan="121">` +
                 data[i].storey_level +
                 ` Storey</td>
                 </tr>
@@ -220,7 +214,7 @@
               if (data[i].storey_level !== data[i - 1].storey_level) {
                 trStorey.innerHTML =
                   `<tr>
-                  <td colspan="102">` +
+                  <td colspan="121">` +
                   data[i].storey_level +
                   ` Storey</td>
                 </tr>
@@ -256,6 +250,10 @@
             let monthlyLeaseScNov = parseFloat(data[i].sc_nov) * parseFloat(data[i].leased_area);
             let monthlyLeaseScDec = parseFloat(data[i].sc_dec) * parseFloat(data[i].leased_area);
 
+            let monthlyLeaseNetRent = parseFloat(data[i].nr) * parseFloat(data[i].leased_area); 
+            let monthlyLeaseServiceCharge = parseFloat(data[i].sc) * parseFloat(data[i].leased_area); 
+            let monthlyTotalGrossRent = monthlyLeaseNetRent + monthlyLeaseServiceCharge;
+
             let trRentData = document.createElement("tr");
             trRentData.innerHTML =
               `
@@ -277,6 +275,22 @@
               `</td>
                   <td>` +
               data[i].leased_area +
+              `</td>
+                <td>` +
+              data[i].nr +
+              `</td>
+                <td>` +
+              data[i].sc +
+              `</td>
+              <td></td>
+                <td>` +
+              monthlyLeaseNetRent +
+              `</td>
+                <td>` +
+              monthlyLeaseServiceCharge +
+              `</td>
+                <td>` +
+                monthlyTotalGrossRent +
               `</td>
                   <td>` +
               parseFloat(data[i].nr_jan).toFixed(2) +
