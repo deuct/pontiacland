@@ -161,22 +161,23 @@
     }
     /* /Get URL */
 
-    function getActBefore(unitCode, month, year){
-      $.ajax({
+    async function getActBefore(unitCode, month, year){
+      let resVal = await $.ajax({
       type: "POST", //type of method
       url: "../../../controller/report/report-a/getactbefore.php", //your page
       data: {
-        year: year,
+        year: (parseInt(year) - 1),
         month: month,
         unitCode: unitCode,
       }, // passing the values
-      success: function(res) {
-        res = JSON.parse(res);
-        console.log("res");
-        
-        console.log(res);
-      }
     })
+    resVal = JSON.parse(resVal);
+    if(resVal.status == 200) {
+      resVal = resVal.data[0];
+      return resVal;
+    } else {
+      return 0;
+    }
     }
 
     function getAct(leasestart, leaseend, compareMonth, monthlyLeaseCharge) {
@@ -210,7 +211,7 @@
       data: {
         year: getCurrentURL("year"),
       }, // passing the values
-      success: function(res) {
+      success: async function(res) {
         res = JSON.parse(res);
         console.log(res);
         if (res.status === 200) {
@@ -273,7 +274,32 @@
             let monthlyTotalGrossRent = monthlyLeaseNetRent + monthlyLeaseServiceCharge;
 
             /* ACT Year Before */
-            getActBefore(data[i].unit_code, 1, getCurrentURL("year"));
+            let ActBeforeJan = await getActBefore(data[i].unit_code, 1, getCurrentURL("year"));
+            let ActBeforeFeb = await getActBefore(data[i].unit_code, 2, getCurrentURL("year"));
+            let ActBeforeMar = await getActBefore(data[i].unit_code, 3, getCurrentURL("year"));
+            let ActBeforeApr = await getActBefore(data[i].unit_code, 4, getCurrentURL("year"));
+            let ActBeforeMay = await getActBefore(data[i].unit_code, 5, getCurrentURL("year"));
+            let ActBeforeJun = await getActBefore(data[i].unit_code, 6, getCurrentURL("year"));
+            let ActBeforeJul = await getActBefore(data[i].unit_code, 7, getCurrentURL("year"));
+            let ActBeforeAug = await getActBefore(data[i].unit_code, 8, getCurrentURL("year"));
+            let ActBeforeSep = await getActBefore(data[i].unit_code, 9, getCurrentURL("year"));
+            let ActBeforeOct = await getActBefore(data[i].unit_code, 10, getCurrentURL("year"));
+            let ActBeforeNov = await getActBefore(data[i].unit_code, 11, getCurrentURL("year"));
+            let ActBeforeDec = await getActBefore(data[i].unit_code, 12, getCurrentURL("year"));
+            
+            console.log(ActBeforeJan);
+            // let nrActBeforeJan = 
+            // let nrActBeforeFeb = 
+            // let nrActBeforeMar = 
+            // let nrActBeforeApr = 
+            // let nrActBeforeMay = 
+            // let nrActBeforeJun = 
+            // let nrActBeforeJul = 
+            // let nrActBeforeAug = 
+            // let nrActBeforeSep = 
+            // let nrActBeforeOct = 
+            // let nrActBeforeNov = 
+            // let nrActBeforeDec = 
             /* /ACT Year Before */
 
             let trRentData = document.createElement("tr");

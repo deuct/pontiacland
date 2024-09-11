@@ -9,8 +9,11 @@ $month = $_POST["month"];
 $unitCode = $_POST["unitCode"];
 
 try {
-    $qGetData = "SELECT net_rent FROM rentdata_monthly 
-    WHERE unit_code = '$unitCode' AND year = '$year' AND month = '$month'
+    $qGetData = "SELECT net_rent, service_charge 
+    FROM rentdata_monthly 
+    WHERE unit_code = '$unitCode' 
+    AND year = '$year' 
+    AND month = '$month'
     ";
     $qGetData = $conn->query($qGetData);
     if ($qGetData->num_rows > 0) {
