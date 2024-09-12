@@ -4,7 +4,7 @@ include_once("../../config/dbconnection.php");
 $res = new stdClass();
 
 try {
-    $qGetData = "SELECT DISTINCT a.lease_code, b.lease_no, a.year
+    $qGetData = "SELECT DISTINCT a.lease_code, b.lease_no, a.year, a.budget_type
     FROM budget a
     LEFT JOIN leasedata b ON a.lease_code = b.lease_code
     ";

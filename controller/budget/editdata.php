@@ -7,9 +7,10 @@ $res = new stdClass();
 $leaseNo = $_POST["leaseNo"];
 $year = $_POST["year"];
 $dateValue = $_POST["dateValue"];
+$budgetType = $_POST["budgetType"];
 
 try {
-    $qDelData = "DELETE FROM budget WHERE lease_code = '$leaseNo' AND year = '$year'";
+    $qDelData = "DELETE FROM budget WHERE lease_code = '$leaseNo' AND year = '$year' AND budget_type='$budgetType'";
     $qDelData = $conn->query($qDelData);
 
     for ($i = 0; $i < count($dateValue); $i++) {
@@ -19,6 +20,7 @@ try {
             month,
             year,
             budget_value,
+            budget_type,
             created_at,
             created_by,
             modified_at,
@@ -28,6 +30,7 @@ try {
             $month,
             $year,
             $dateValue[$i],
+            '$budgetType',
             NOW(),
             'farhan',
             NOW(),

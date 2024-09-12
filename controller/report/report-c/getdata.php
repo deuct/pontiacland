@@ -28,7 +28,7 @@ try {
     (SELECT net_rent FROM rentdata_monthly WHERE unit_code = a.unit_code AND year = '$year' AND month = '9') nr_sep,
     (SELECT service_charge FROM rentdata_monthly WHERE unit_code = a.unit_code AND year = '$year' AND month = '9') sc_sep,
     (SELECT net_rent FROM rentdata_monthly WHERE unit_code = a.unit_code AND year = '$year' AND month = '10') nr_oct,
-    (SELECT service_charge FROM rentdata_monthly WHERE unit_code = a.unit_code AND year = '$year' AND month = '1') sc_oct,
+    (SELECT service_charge FROM rentdata_monthly WHERE unit_code = a.unit_code AND year = '$year' AND month = '10') sc_oct,
     (SELECT net_rent FROM rentdata_monthly WHERE unit_code = a.unit_code AND year = '$year' AND month = '11') nr_nov,
     (SELECT service_charge FROM rentdata_monthly WHERE unit_code = a.unit_code AND year = '$year' AND month = '11') sc_nov,
     (SELECT net_rent FROM rentdata_monthly WHERE unit_code = a.unit_code AND year = '$year' AND month = '12') nr_dec,

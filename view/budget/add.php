@@ -24,6 +24,14 @@
                             </select>
                         </div>
                         <div class="mb-3">
+                            <label for="budget-type" class="form-label">Budget Type</label>
+                            <select class="form-select" aria-label="budget-type" id="budget-type">
+                                <option selected>Select budget type</option>
+                                <option value="nr">Net Rent</option>
+                                <option value="sc">Service Charge</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <label for="year" class="form-label">Year</label>
                             <select class="form-select" aria-label="year" id="year">
                                 <?php for ($i = 2015; $i <= 2099; $i++) { ?>
@@ -52,7 +60,8 @@
     <script type="text/javascript">
         var leaseNo = document.getElementById("lease-no"),
             year = document.getElementById("year"),
-            dateValue = document.querySelectorAll(".date-value");
+            dateValue = document.querySelectorAll(".date-value"),
+            budgetType = document.getElementById("budget-type");
 
 
         function submitform() {
@@ -68,6 +77,7 @@
                     leaseNo: leaseNo.value,
                     year: year.value,
                     dateValue: arrDate,
+                    budgetType: budgetType.value
                 }, // passing the values
                 success: function(res) {
                     res = JSON.parse(res);

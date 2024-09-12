@@ -24,6 +24,14 @@
                             </select>
                         </div>
                         <div class="mb-3">
+                            <label for="budget-type" class="form-label">Budget Type</label>
+                            <select class="form-select" aria-label="budget-type" id="budget-type" readonly disabled>
+                                <option selected>Select budget type</option>
+                                <option value="nr">Net Rent</option>
+                                <option value="sc">Service Charge</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <label for="year" class="form-label">Year</label>
                             <select class="form-select" aria-label="year" id="year" readonly disabled>
                                 <?php for ($i = 2015; $i <= 2099; $i++) { ?>
@@ -62,7 +70,8 @@
 
         var leaseNo = document.getElementById("lease-no"),
             year = document.getElementById("year"),
-            dateValue = document.querySelectorAll(".date-value");
+            dateValue = document.querySelectorAll(".date-value"),
+            budgetType = document.getElementById("budget-type");
 
 
         function submitform() {
@@ -78,6 +87,7 @@
                     leaseNo: leaseNo.value,
                     year: year.value,
                     dateValue: arrDate,
+                    budgetType: budgetType.value
                 }, // passing the values
                 success: function(res) {
                     res = JSON.parse(res);
@@ -121,7 +131,7 @@
         function getFormData() {
             $.ajax({
                 type: "GET", //type of method
-                url: "../../controller/budget/getform.php?lease_code=" + getCurrentURL("lease_code"), //your page
+                url: "../../controller/budget/getform.php?lease_code=" + getCurrentURL("lease_code")+"&budgetType="+getCurrentURL("budgetType"), //your page
                 dataType: 'json',
                 success: function(res) {
                     // res = JSON.parse(res);
@@ -129,6 +139,7 @@
                     if (res.status === 200) {
                         leaseNo.value = res.data[0].lease_code;
                         year.value = res.data[0].year;
+                        budgetType.value = res.data[0].budget_type;
                         for (let i = 0; i < res.data.length; i++) {
                             data = res.data[i];
                             let dateEl = document.getElementById("date-" + data.month);
@@ -156,6 +167,7 @@
                     data: {
                         leaseCode: getCurrentURL("lease_code"),
                         year: getCurrentURL("year"),
+                        budgetType: getCurrentURL("budgetType"),
                     }, // passing the values
                     success: function(res) {
                         res = JSON.parse(res);

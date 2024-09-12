@@ -161,23 +161,44 @@
     }
     /* /Get URL */
 
+    async function getPercentage(unitCode, month, year){
+      let resVal = await $.ajax({
+        type: "POST", //type of method
+        url: "../../../controller/report/report-a/getpercentage.php", //your page
+        data: {
+          year: parseInt(year),
+          month: parseInt(month),
+          unitCode: unitCode,
+        }, // passing the values
+      })
+
+      resVal = JSON.parse(resVal);
+      if(resVal.status == 200) {
+        resVal = resVal.data[0];
+        return resVal;
+      } else {
+        return 0;
+      }
+    }    
+
     async function getActBefore(unitCode, month, year){
       let resVal = await $.ajax({
-      type: "POST", //type of method
-      url: "../../../controller/report/report-a/getactbefore.php", //your page
-      data: {
-        year: (parseInt(year) - 1),
-        month: month,
-        unitCode: unitCode,
-      }, // passing the values
-    })
-    resVal = JSON.parse(resVal);
-    if(resVal.status == 200) {
-      resVal = resVal.data[0];
-      return resVal;
-    } else {
-      return 0;
-    }
+        type: "POST", //type of method
+        url: "../../../controller/report/report-a/getactbefore.php", //your page
+        data: {
+          year: (parseInt(year) - 1),
+          month: month,
+          unitCode: unitCode,
+        }, // passing the values
+      })
+
+      resVal = JSON.parse(resVal);
+      if(resVal.status == 200) {
+        resVal = resVal.data[0];
+        return resVal;
+      } else {
+        return 0;
+      }
     }
 
     function getAct(leasestart, leaseend, compareMonth, monthlyLeaseCharge) {
@@ -286,21 +307,25 @@
             let ActBeforeOct = await getActBefore(data[i].unit_code, 10, getCurrentURL("year"));
             let ActBeforeNov = await getActBefore(data[i].unit_code, 11, getCurrentURL("year"));
             let ActBeforeDec = await getActBefore(data[i].unit_code, 12, getCurrentURL("year"));
-            
-            console.log(ActBeforeJan);
-            // let nrActBeforeJan = 
-            // let nrActBeforeFeb = 
-            // let nrActBeforeMar = 
-            // let nrActBeforeApr = 
-            // let nrActBeforeMay = 
-            // let nrActBeforeJun = 
-            // let nrActBeforeJul = 
-            // let nrActBeforeAug = 
-            // let nrActBeforeSep = 
-            // let nrActBeforeOct = 
-            // let nrActBeforeNov = 
-            // let nrActBeforeDec = 
             /* /ACT Year Before */
+
+            /* Percentage */
+            // let percentage = await getPercentage(data[i].unit_code, 1, getCurrentURL("year"));
+            
+            let percentageJan = await getPercentage(data[i].unit_code, 1, getCurrentURL("year"));
+            let percentageFeb = await getPercentage(data[i].unit_code, 2, getCurrentURL("year"));
+            let percentageMar = await getPercentage(data[i].unit_code, 3, getCurrentURL("year"));
+            let percentageApr = await getPercentage(data[i].unit_code, 4, getCurrentURL("year"));
+            let percentageMay = await getPercentage(data[i].unit_code, 5, getCurrentURL("year"));
+            let percentageJun = await getPercentage(data[i].unit_code, 6, getCurrentURL("year"));
+            let percentageJul = await getPercentage(data[i].unit_code, 7, getCurrentURL("year"));
+            let percentageAug = await getPercentage(data[i].unit_code, 8, getCurrentURL("year"));
+            let percentageSep = await getPercentage(data[i].unit_code, 9, getCurrentURL("year"));
+            let percentageOct = await getPercentage(data[i].unit_code, 10, getCurrentURL("year"));
+            let percentageNov = await getPercentage(data[i].unit_code, 11, getCurrentURL("year"));
+            let percentageDec = await getPercentage(data[i].unit_code, 12, getCurrentURL("year"));
+            
+            /* /Percentage */
 
             let trRentData = document.createElement("tr");
             trRentData.innerHTML =
@@ -340,401 +365,330 @@
                 <td>` +
                 monthlyTotalGrossRent +
               `</td>
-                  <td>` +
-              parseFloat(data[i].nr_jan).toFixed(2) +
+                <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-01-01', monthlyLeaseNrJan)) +
               `</td>
-                  <td>` +
-              parseFloat(data[i].sc_jan).toFixed(2) +
-              `</td>
-                  <td>` +
-              (parseFloat(data[i].nr_jan) + parseFloat(data[i].sc_jan)).toFixed(
-                2
-              ) +
+                <td>` +
+                data[i].budget_nr_jan +
               `</td>
               <td>` +
-              parseFloat(data[i].nr_feb).toFixed(2) +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-01-01', monthlyLeaseNrJan)) - data[i].budget_nr_jan) +
               `</td>
-                  <td>` +
-              parseFloat(data[i].sc_feb).toFixed(2) +
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-01-01', ActBeforeJan.net_rent))+`
+              </td>
+                <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-02-01', monthlyLeaseNrFeb)) +
               `</td>
-                  <td>` +
-              (parseFloat(data[i].nr_feb) + parseFloat(data[i].sc_feb)).toFixed(
-                2
-              ) +
-              `</td>
-              <td>` +
-              parseFloat(data[i].nr_mar).toFixed(2) +
-              `</td>
-                  <td>` +
-              parseFloat(data[i].sc_mar).toFixed(2) +
-              `</td>
-                  <td>` +
-              (parseFloat(data[i].nr_mar) + parseFloat(data[i].sc_mar)).toFixed(
-                2
-              ) +
+                <td>` +
+                data[i].budget_nr_feb +
               `</td>
               <td>` +
-              parseFloat(data[i].nr_apr).toFixed(2) +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-02-01', monthlyLeaseNrFeb)) - data[i].budget_nr_feb) +
               `</td>
-                  <td>` +
-              parseFloat(data[i].sc_apr).toFixed(2) +
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-02-01', ActBeforeFeb.net_rent))+`
+              </td>
+                <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-03-01', monthlyLeaseNrMar)) +
               `</td>
-                  <td>` +
-              (parseFloat(data[i].nr_apr) + parseFloat(data[i].sc_apr)).toFixed(
-                2
-              ) +
-              `</td>
-              <td>` +
-              parseFloat(data[i].nr_may).toFixed(2) +
-              `</td>
-                  <td>` +
-              parseFloat(data[i].sc_may).toFixed(2) +
-              `</td>
-                  <td>` +
-              (parseFloat(data[i].nr_may) + parseFloat(data[i].sc_may)).toFixed(
-                2
-              ) +
+                <td>` +
+                data[i].budget_nr_mar +
               `</td>
               <td>` +
-              parseFloat(data[i].nr_jun).toFixed(2) +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-03-01', monthlyLeaseNrMar)) - data[i].budget_nr_mar) +
               `</td>
-                  <td>` +
-              parseFloat(data[i].sc_jun).toFixed(2) +
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-03-01', ActBeforeMar.net_rent))+`
+              </td>
+                <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-04-01', monthlyLeaseNrApr)) +
               `</td>
-                  <td>` +
-              (parseFloat(data[i].nr_jun) + parseFloat(data[i].sc_jun)).toFixed(
-                2
-              ) +
-              `</td>
-              <td>` +
-              parseFloat(data[i].nr_jul).toFixed(2) +
-              `</td>
-                  <td>` +
-              parseFloat(data[i].sc_jul).toFixed(2) +
-              `</td>
-                  <td>` +
-              (parseFloat(data[i].nr_jul) + parseFloat(data[i].sc_jul)).toFixed(
-                2
-              ) +
+                <td>` +
+                data[i].budget_nr_apr +
               `</td>
               <td>` +
-              parseFloat(data[i].nr_aug).toFixed(2) +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-04-01', monthlyLeaseNrApr)) - data[i].budget_nr_apr) +
               `</td>
-                  <td>` +
-              parseFloat(data[i].sc_aug).toFixed(2) +
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-04-01', ActBeforeApr.net_rent))+`
+              </td>
+                <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-05-01', monthlyLeaseNrMay)) +
               `</td>
-                  <td>` +
-              (parseFloat(data[i].nr_aug) + parseFloat(data[i].sc_aug)).toFixed(
-                2
-              ) +
-              `</td>
-              <td>` +
-              parseFloat(data[i].nr_sep).toFixed(2) +
-              `</td>
-                  <td>` +
-              parseFloat(data[i].sc_sep).toFixed(2) +
-              `</td>
-                  <td>` +
-              (parseFloat(data[i].nr_sep) + parseFloat(data[i].sc_sep)).toFixed(
-                2
-              ) +
+                <td>` +
+                data[i].budget_nr_may +
               `</td>
               <td>` +
-              parseFloat(data[i].nr_oct).toFixed(2) +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-05-01', monthlyLeaseNrMay)) - data[i].budget_nr_may) +
               `</td>
-                  <td>` +
-              parseFloat(data[i].sc_oct).toFixed(2) +
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-05-01', ActBeforeMay.net_rent))+`
+              </td>
+                <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-06-01', monthlyLeaseNrJun)) +
               `</td>
-                  <td>` +
-              (parseFloat(data[i].nr_oct) + parseFloat(data[i].sc_oct)).toFixed(
-                2
-              ) +
-              `</td>
-              <td>` +
-              parseFloat(data[i].nr_nov).toFixed(2) +
-              `</td>
-                  <td>` +
-              parseFloat(data[i].sc_nov).toFixed(2) +
-              `</td>
-                  <td>` +
-              (parseFloat(data[i].nr_nov) + parseFloat(data[i].sc_nov)).toFixed(
-                2
-              ) +
+                <td>` +
+                data[i].budget_nr_jun +
               `</td>
               <td>` +
-              parseFloat(data[i].nr_dec).toFixed(2) +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-06-01', monthlyLeaseNrJun)) - data[i].budget_nr_jun) +
               `</td>
-                  <td>` +
-              parseFloat(data[i].sc_dec).toFixed(2) +
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-05-01', ActBeforeJun.net_rent))+`
+              </td>
+                <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-07-01', monthlyLeaseNrJul)) +
               `</td>
-                  <td>` +
-              (parseFloat(data[i].nr_dec) + parseFloat(data[i].sc_dec)).toFixed(
-                2
-              ) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_jan)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_jan)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_jan) +
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_jan)
-              ).toFixed(2)) +
-              `</td>
-                 <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_feb)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_feb)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_feb) +
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_feb)
-              ).toFixed(2)) +
-              `</td>
-                 <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_mar)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_mar)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_mar) +
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_mar)
-              ).toFixed(2)) +
-              `</td>
-                 <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_apr)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_apr)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_apr) +
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_apr)
-              ).toFixed(2)) +
+                <td>` +
+                data[i].budget_nr_jul +
               `</td>
               <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_may)
-              ).toFixed(2)) +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-07-01', monthlyLeaseNrJul)) - data[i].budget_nr_jul) +
               `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_may)
-              ).toFixed(2)) +
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-07-01', ActBeforeJul.net_rent))+`
+              </td>
+                <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-08-01', monthlyLeaseNrAug)) +
               `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_may) +
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_may)
-              ).toFixed(2)) +
-              `</td>
-                 <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_jun)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_jun)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_jun) +
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_jun)
-              ).toFixed(2)) +
-              `</td>
-                 <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_jul)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_jul)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_jul) +
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_jul)
-              ).toFixed(2)) +
-              `</td>
-                 <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_aug)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_aug)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_aug) +
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_aug)
-              ).toFixed(2)) +
-              `</td>
-                 <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_sep)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_sep)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_sep) +
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_sep)
-              ).toFixed(2)) +
-              `</td>
-                 <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_oct)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_oct)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_oct) +
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_oct)
-              ).toFixed(2)) +
-              `</td>
-                 <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_nov)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_nov)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_nov) +
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_nov)
-              ).toFixed(2)) +
-              `</td>
-                 <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_dec)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_dec)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round((
-                parseFloat(data[i].leased_area) * parseFloat(data[i].nr_dec) +
-                parseFloat(data[i].leased_area) * parseFloat(data[i].sc_dec)
-              ).toFixed(2)) +
-              `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-01-01', monthlyLeaseNrJan)) +
-              `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-02-01', monthlyLeaseNrFeb)) +
-              `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-03-01', monthlyLeaseNrMar)) +
-              `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-04-01', monthlyLeaseNrApr)) +
-              `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-05-01', monthlyLeaseNrMay)) +
-              `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-06-01', monthlyLeaseNrJun)) +
-              `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-07-01', monthlyLeaseNrJul)) +
-              `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-08-01', monthlyLeaseNrAug)) +
-              `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-09-01', monthlyLeaseNrSep)) +
-              `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-10-01', monthlyLeaseNrOct)) +
-              `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-11-01', monthlyLeaseNrNov)) +
-              `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-12-01', monthlyLeaseNrDec)) +
+                <td>` +
+                data[i].budget_nr_aug +
               `</td>
               <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-01-01', monthlyLeaseScJan)) +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-08-01', monthlyLeaseNrAug)) - data[i].budget_nr_aug) +
               `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-02-01', monthlyLeaseScFeb)) +
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-08-01', ActBeforeAug.net_rent))+`
+              </td>
+                <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-09-01', monthlyLeaseNrSep)) +
               `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-03-01', monthlyLeaseScMar)) +
+                <td>` +
+                data[i].budget_nr_sep +
               `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-04-01', monthlyLeaseScApr)) +
+              <td>` +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-09-01', monthlyLeaseNrSep)) - data[i].budget_nr_sep) +
               `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-05-01', monthlyLeaseScMay)) +
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-09-01', ActBeforeSep.net_rent))+`
+              </td>
+                <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-10-01', monthlyLeaseNrOct)) +
               `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-06-01', monthlyLeaseScJun)) +
+                <td>` +
+                data[i].budget_nr_oct +
               `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-07-01', monthlyLeaseScJul)) +
+              <td>` +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-10-01', monthlyLeaseNrOct)) - data[i].budget_nr_oct) +
               `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-08-01', monthlyLeaseScAug)) +
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-10-01', ActBeforeOct.net_rent))+`
+              </td>
+                <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-11-01', monthlyLeaseNrNov)) +
               `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-09-01', monthlyLeaseScSep)) +
+                <td>` +
+                data[i].budget_nr_nov +
               `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-10-01', monthlyLeaseScOct)) +
+              <td>` +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-11-01', monthlyLeaseNrNov)) - data[i].budget_nr_nov) +
               `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-11-01', monthlyLeaseScNov)) +
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-11-01', ActBeforeNov.net_rent))+`
+              </td>
+                <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-12-01', monthlyLeaseNrDec)) +
               `</td>
-                  <td>` +
-              Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-12-01', monthlyLeaseScDec)) +
+                <td>` +
+                data[i].budget_nr_dec +
+              `</td>
+              <td>` +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-01-01', monthlyLeaseNrDec)) - data[i].budget_nr_dec) +
+              `</td>
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-01-01', ActBeforeDec.net_rent))+`
+              </td>
+              <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-01-01', monthlyLeaseScJan)) +
+              `</td>
+                <td>` +
+                data[i].budget_sc_jan +
+              `</td>
+              <td>` +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-01-01', monthlyLeaseScJan)) - data[i].budget_sc_jan) +
+              `</td>
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-01-01', ActBeforeJan.service_charge))+`
+              </td>
+              <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-02-01', monthlyLeaseScFeb)) +
+              `</td>
+                <td>` +
+                data[i].budget_sc_feb +
+              `</td>
+              <td>` +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-02-01', monthlyLeaseScFeb)) - data[i].budget_sc_feb) +
+              `</td>
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-02-01', ActBeforeFeb.service_charge))+`
+              </td>
+              <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-03-01', monthlyLeaseScMar)) +
+              `</td>
+                <td>` +
+                data[i].budget_sc_mar +
+              `</td>
+              <td>` +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-03-01', monthlyLeaseScMar)) - data[i].budget_sc_mar) +
+              `</td>
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-03-01', ActBeforeMar.service_charge))+`
+              </td>
+              <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-04-01', monthlyLeaseScApr)) +
+              `</td>
+                <td>` +
+                data[i].budget_sc_apr +
+              `</td>
+              <td>` +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-04-01', monthlyLeaseScApr)) - data[i].budget_sc_apr) +
+              `</td>
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-04-01', ActBeforeApr.service_charge))+`
+              </td>
+              <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-05-01', monthlyLeaseScMay)) +
+              `</td>
+                <td>` +
+                data[i].budget_sc_may +
+              `</td>
+              <td>` +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-05-01', monthlyLeaseScMay)) - data[i].budget_sc_may) +
+              `</td>
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-05-01', ActBeforeMay.service_charge))+`
+              </td>
+              <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-06-01', monthlyLeaseScJun)) +
+              `</td>
+                <td>` +
+                data[i].budget_sc_jun +
+              `</td>
+              <td>` +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-06-01', monthlyLeaseScJun)) - data[i].budget_sc_jun) +
+              `</td>
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-06-01', ActBeforeJun.service_charge))+`
+              </td>
+              <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-07-01', monthlyLeaseScJul)) +
+              `</td>
+                <td>` +
+                data[i].budget_sc_jul +
+              `</td>
+              <td>` +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-07-01', monthlyLeaseScJul)) - data[i].budget_sc_jul) +
+              `</td>
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-07-01', ActBeforeJul.service_charge))+`
+              </td>
+              <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-08-01', monthlyLeaseScAug)) +
+              `</td>
+                <td>` +
+                data[i].budget_sc_aug +
+              `</td>
+              <td>` +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-08-01', monthlyLeaseScAug)) - data[i].budget_sc_aug) +
+              `</td>
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-08-01', ActBeforeAug.service_charge))+`
+              </td>
+              <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-09-01', monthlyLeaseScSep)) +
+              `</td>
+                <td>` +
+                data[i].budget_sc_sep +
+              `</td>
+              <td>` +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-09-01', monthlyLeaseScSep)) - data[i].budget_sc_sep) +
+              `</td>
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-09-01', ActBeforeSep.service_charge))+`
+              </td>
+              <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-10-01', monthlyLeaseScOct)) +
+              `</td>
+                <td>` +
+                data[i].budget_sc_oct +
+              `</td>
+              <td>` +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-10-01', monthlyLeaseScOct)) - data[i].budget_sc_oct) +
+              `</td>
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-10-01', ActBeforeOct.service_charge))+`
+              </td>
+              <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-11-01', monthlyLeaseScNov)) +
+              `</td>
+                <td>` +
+                data[i].budget_sc_nov +
+              `</td>
+              <td>` +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-11-01', monthlyLeaseScNov)) - data[i].budget_sc_nov) +
+              `</td>
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-11-01', ActBeforeNov.service_charge))+`
+              </td>
+              <td>` +
+                Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-12-01', monthlyLeaseScDec)) +
+              `</td>
+                <td>` +
+                data[i].budget_sc_dec +
+              `</td>
+              <td>` +
+              (Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= $_GET["year"] ?> + '-12-01', monthlyLeaseScDec)) - data[i].budget_sc_dec) +
+              `</td>
+              <td>
+              `+Math.round(getAct(data[i].lease_startdate, data[i].lease_enddate, <?= ((int)$_GET["year"] - 1) ?> + '-12-01', ActBeforeDec.service_charge))+`
+              </td>
+              <td></td>
+              <td>`
+              +percentageJan.value+
+              `</td>
+              <td>`
+              +percentageFeb.value+
+              `</td>
+              <td>`
+              +percentageMar.value+
+              `</td>
+              <td>`
+              +percentageApr.value+
+              `</td>
+              <td>`
+              +percentageMay.value+
+              `</td>
+              <td>`
+              +percentageJun.value+
+              `</td>
+              <td>`
+              +percentageJul.value+
+              `</td>
+              <td>`
+              +percentageAug.value+
+              `</td>
+              <td>`
+              +percentageSep.value+
+              `</td>
+              <td>`
+              +percentageOct.value+
+              `</td>
+              <td>`
+              +percentageNov.value+
+              `</td>
+              <td>`
+              +percentageDec.value+
               `</td>
               </tr>
             `;

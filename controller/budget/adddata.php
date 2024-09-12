@@ -7,9 +7,10 @@ $res = new stdClass();
 $leaseNo = $_POST["leaseNo"];
 $year = $_POST["year"];
 $dateValue = $_POST["dateValue"];
+$budgetType = $_POST["budgetType"];
 
 try {
-    $qCheckExist = "SELECT budget_code FROM budget WHERE lease_code = '$leaseNo' AND year = '$year'";
+    $qCheckExist = "SELECT budget_code FROM budget WHERE lease_code = '$leaseNo' AND year = '$year' AND budget_type = '$budgetType'";
     $qCheckExist = $conn->query($qCheckExist);
 
     if ($qCheckExist->num_rows > 0) {
@@ -23,6 +24,7 @@ try {
             month,
             year,
             budget_value,
+            budget_type,
             created_at,
             created_by,
             modified_at,
@@ -32,6 +34,7 @@ try {
             $month,
             $year,
             $dateValue[$i],
+            '$budgetType',
             NOW(),
             'farhan',
             NOW(),

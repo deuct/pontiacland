@@ -4,12 +4,14 @@ include_once("../../config/dbconnection.php");
 $res = new stdClass();
 
 $leaseCode = $_GET["lease_code"];
+$budgetType = $_GET["budgetType"];
 
 try {
     $qGetFormData = "SELECT lease_code,
-    month, year, budget_value     
+    month, year, budget_value, budget_type   
     FROM budget
     WHERE lease_code = '$leaseCode'
+    AND budget_type = '$budgetType'
     ORDER BY month ASC
     ";
     $qGetFormData = $conn->query($qGetFormData);
